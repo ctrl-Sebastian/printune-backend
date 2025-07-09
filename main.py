@@ -7,7 +7,7 @@ import os
 import uuid
 import trimesh
 import shutil
-import pathlib
+from pathlib import Path
 import time
 import asyncio
 BASE_MODEL_DIR = "base_models"
@@ -75,11 +75,19 @@ async def startup_event():
 async def generate_stl(req: GenerationRequest):
     try:
         # Check if req.baseModel exists in temp_uploads, otherwise use as is
-        temp_base_model_path = str(pathlib.Path("temp_uploads") / req.baseModel)
-        if os.path.isfile(temp_base_model_path):
-            base_model_path = temp_base_model_path
+        if Path(req.baseModel).name != req.baseModel:
+            raise HTTPException(status_code=400, detail="Invalid base model name.")
+
+        # Use uploaded if it exists
+        temp_path = os.path.join("temp_uploads", req.baseModel)
+        base_path = os.path.join("base_models", req.baseModel)
+
+        if os.path.isfile(temp_path):
+            base_model_path = temp_path
+        elif os.path.isfile(base_path):
+            base_model_path = base_path
         else:
-            base_model_path = req.baseModel
+            raise HTTPException(status_code=404, detail="Base model not found.")
 
         file_path = generate_keychain_stl(
             bar_heights=req.barHeights,
@@ -98,11 +106,19 @@ async def generate_stl(req: GenerationRequest):
 @app.post("/generate-glb")
 async def generate_glb(req: GenerationRequest):
     try:
-        temp_base_model_path = str(pathlib.Path("temp_uploads") / req.baseModel)
-        if os.path.isfile(temp_base_model_path):
-            base_model_path = temp_base_model_path
+        if Path(req.baseModel).name != req.baseModel:
+            raise HTTPException(status_code=400, detail="Invalid base model name.")
+
+        # Use uploaded if it exists
+        temp_path = os.path.join("temp_uploads", req.baseModel)
+        base_path = os.path.join("base_models", req.baseModel)
+
+        if os.path.isfile(temp_path):
+            base_model_path = temp_path
+        elif os.path.isfile(base_path):
+            base_model_path = base_path
         else:
-            base_model_path = req.baseModel
+            raise HTTPException(status_code=404, detail="Base model not found.")
 
         print("Resolved base model path:", base_model_path)
         if not os.path.isfile(base_model_path):
