@@ -10,10 +10,10 @@ import shutil
 import pathlib
 import time
 import asyncio
-BASE_MODEL_DIR = "/mnt/data/base_models"
-TEMP_UPLOADS_DIR = "/mnt/data/temp_uploads"
-CACHE_DIR = "/mnt/data/cache"
-PREVIEW_OUTPUT_DIR = "/mnt/data/preview_models"
+BASE_MODEL_DIR = "base_models"
+TEMP_UPLOADS_DIR = "/tmp/temp_uploads"
+CACHE_DIR = "/tmp/cache"
+PREVIEW_OUTPUT_DIR = "/tmp/preview_models"
 
 CLEANUP_INTERVAL_SECONDS = 60 * 60  # 1 hour
 FILE_MAX_AGE_SECONDS = 60 * 60   

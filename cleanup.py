@@ -1,5 +1,5 @@
 import os, time
-CACHE_DIRS = ["/mnt/data/cache", "/mnt/data/preview_models", "/mnt/data/temp_uploads"]
+CACHE_DIRS = ["/tmp/cache", "/tmp/preview_models", "/tmp/temp_uploads"]
 EXPIRATION_SECONDS = 60 * 60 * 24  # 1 day
 
 def cleanup():

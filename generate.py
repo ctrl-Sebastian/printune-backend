@@ -2,8 +2,8 @@ import cadquery as cq
 import hashlib
 import os
 
-BASE_MODEL_DIR = "/mnt/data/base_models"
-CACHE_DIR = "/mnt/data/cache"
+BASE_MODEL_DIR = "base_models"
+CACHE_DIR = "/tmp/cache"
 os.makedirs(CACHE_DIR, exist_ok=True)
 
 def generate_keychain_stl(bar_heights, base_model, extrusion_height):
