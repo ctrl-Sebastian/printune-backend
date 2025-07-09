@@ -1,0 +1,10 @@
+__pycache__
+*.pyc
+.env
+.git
+*.pyo
+*.pyd
+.vscode
+node_modules
+dist
+build
